@@ -10,19 +10,21 @@
     document.head.appendChild(pymScript);
 
     window.loadIframe = function(everflowURL) {
-        // Parse the existing URL
-        var url = new URL(everflowURL);
-
-        // Parse the search parameters from the current window location
-        var searchParams = new URLSearchParams(window.location.search);
-
-        // Append the search parameters to the URL
-        for (var pair of searchParams.entries()) {
-            // If the parameter already exists in the URL, update it, otherwise add it
-            url.searchParams.set(pair[0], pair[1]);
+        // Check if everflowURL already has parameters
+        if (everflowURL.indexOf('?') !== -1) {
+            // If it does, replace the '?' in window.location.search with '&'
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.delete('uid');
+            searchParams.delete('oid');
+            everflowURL += '&' + searchParams.toString();
+        } else {
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.delete('uid');
+            searchParams.delete('oid');
+            everflowURL += '?' + searchParams.toString();
         }
 
         // Load the iframe with the modified URL
-        var pymParent = new pym.Parent('pym-container', url.toString(), {});
+        var pymParent = new pym.Parent('pym-container', everflowURL, {});
     };
 })();
