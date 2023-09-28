@@ -1,3 +1,4 @@
+<script>
 const workingHours = {
   // 1 means monday  , 2 means tuesday and so on
   1: [{start: '0900', end: '1200'}, {start: '1400', end: '1900'}], // Monday
@@ -44,3 +45,5 @@ function isBusinessHours(workingHours) {
 if(!isBusinessHours(workingHours)){
   window.location.href = "https://page_you_want_to_redirect_to_during_non_business_hours.com";
 }
+
+  </script>
